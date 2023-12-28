@@ -4,6 +4,7 @@ const connectDB = require('./src/config/db');
 
 // DB Connection
 connectDB();
+
 app.listen(CONFIG.PORT, () => {
     console.log(`Server active on http://localhost:${CONFIG.PORT}`);
 })
