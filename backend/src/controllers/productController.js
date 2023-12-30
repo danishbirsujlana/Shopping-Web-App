@@ -1,6 +1,8 @@
 const ProductModel = require('../models/Product');
 const ErrorHandler = require('../utils/ErrorHandler');
 const AsyncHandler = require('../middleware/AsyncCatch');
+const ApiFeatures = require("../utils/apiFeatures");
+
 const test = async (req, res) => {
     console.log("Working fine!!!");
     res.status(200).json({ message: 'Working fine!' });
@@ -36,7 +38,8 @@ const deleteProduct = AsyncHandler(async (req, res, next) => {
 // All
 /* ======================================================================================================================================== */
 const getAllProducts = AsyncHandler(async (req, res, next) => {
-    const products = await ProductModel.find();
+    const apiFeature = new ApiFeatures(ProductModel.find(), req.query).search().filter();
+    const products = await apiFeature.query;
     res.status(200).json({ success: true, products });
 });
 
